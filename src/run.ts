@@ -17,7 +17,20 @@ program
     "If value equals ture, certificate validation is disabled for TLS connections. "
   )
   .option("--log", "Show resolved packages.")
-  .option("-D, --save-dev", "Add the new package to devDependencies instead of dependencies.");
+  .option("-D, --save-dev", "Add the new package to devDependencies instead of dependencies.")
+  .option(
+    "--package-lock-only",
+    "If --package-lock-only is provided, it will do this without also modifying your local node_modules."
+  );
+
+async function fix() {
+  const options = program.opts();
+  config.update(options);
+  const cwd = config.rootDir;
+  console.log("dep-fix: start...");
+  await depfix(cwd);
+  console.log("done!");
+}
 
 async function npmInstall(p?: string) {
   const options = program.opts();
@@ -27,13 +40,16 @@ async function npmInstall(p?: string) {
   await shell(`${command} --package-lock-only`, cwd);
   console.log("dep-fix: start...");
   await depfix(cwd);
-  await shell(command, cwd);
+  if (!options.packageLockOnly) {
+    await shell(command, cwd);
+  }
   console.log("done!");
 }
 
 export default async function run(argv: string[]) {
   console.log("use-safety:", argv.join(", "));
   const args = argv.filter((arg) => arg !== "--");
+  program.command("fix").alias("f").description("Fix lost dependencies").action(fix);
   program
     .command("install [package]")
     .alias("i")
