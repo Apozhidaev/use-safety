@@ -29,8 +29,8 @@ async function npmInstall(p?: string) {
 }
 
 export default async function run(argv: string[]) {
-  console.log("art-mpm:", argv.join(", "));
+  console.log("use-safety:", argv.join(", "));
   const args = argv.filter((arg) => arg !== "--");
-  program.command("install [package]").alias("i").description("npm install [package]").action(npmInstall);
+  program.command("install [package]").alias("i").description("Run npm install [package]").action(npmInstall);
   await program.parseAsync(args);
 }
