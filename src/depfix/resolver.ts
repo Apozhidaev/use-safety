@@ -6,7 +6,8 @@ import * as utils from "../utils";
 
 async function canIResolve(name: string, version: string, dependents: Dependent[]) {
   return (
-    dependents.every((dependent) => semver.satisfies(version, dependent.require)) && (await repo.canIUse(name, version))
+    dependents.every((dependent) => semver.satisfies(version, dependent.require)) &&
+    (await repo.canIUse(name, version))
   );
 }
 

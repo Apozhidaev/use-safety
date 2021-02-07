@@ -12,7 +12,10 @@ program
   .option("--username <user>", "User to login.")
   .option("--password <pass>", "Password for user.")
   .option("--root-dir <path>", "Root directory.")
-  .option("--no-tls", "If value equals ture, certificate validation is disabled for TLS connections. ")
+  .option(
+    "--no-tls",
+    "If value equals ture, certificate validation is disabled for TLS connections. "
+  )
   .option("--log", "Show resolved packages.")
   .option("-D, --save-dev", "Add the new package to devDependencies instead of dependencies.");
 
@@ -31,6 +34,10 @@ async function npmInstall(p?: string) {
 export default async function run(argv: string[]) {
   console.log("use-safety:", argv.join(", "));
   const args = argv.filter((arg) => arg !== "--");
-  program.command("install [package]").alias("i").description("Run npm install [package]").action(npmInstall);
+  program
+    .command("install [package]")
+    .alias("i")
+    .description("Run npm install [package]")
+    .action(npmInstall);
   await program.parseAsync(args);
 }
