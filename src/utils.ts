@@ -45,17 +45,17 @@ export function removeDir(location: string, dir: string) {
 
 export function shell(command: string, cwd: string) {
   return new Promise<void>((resolve, reject) => {
-    const proc = child_process.exec(command, { cwd }, function (err) {
+    const proc = child_process.exec(command, { cwd }, (err) => {
       if (err) {
         reject(err);
       } else {
         resolve();
       }
     });
-    proc.stdout?.on("data", function (data) {
+    proc.stdout?.on("data", (data) => {
       console.log(data);
     });
-    proc.stderr?.on("data", function (data) {
+    proc.stderr?.on("data", (data) => {
       console.error(data);
     });
   });

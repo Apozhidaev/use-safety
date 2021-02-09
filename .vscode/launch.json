@@ -7,27 +7,17 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "npm install",
+      "name": "CLI",
       "runtimeArgs": [
         "-r",
         "ts-node/register"
       ],
       "args": [
-        "${workspaceFolder}/src/scripts/npmInstall.ts",
-        "install",
-        "moment"
-      ]
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "depfix",
-      "runtimeArgs": [
-        "-r",
-        "ts-node/register"
-      ],
-      "args": [
-        "${workspaceFolder}/src/scripts/depfix.ts"
+        "${workspaceFolder}/src/cli/index.ts",
+        "i",
+        "moment",
+        "--",
+        "--save-dev"
       ]
     }
   ]

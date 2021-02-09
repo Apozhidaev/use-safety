@@ -3,4 +3,4 @@
 // @ts-ignore
 const { run } = require("../dist");
 
-run(process.argv);
+run();

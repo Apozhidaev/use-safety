@@ -5,7 +5,7 @@ import * as artifactCache from "./cache/artifact";
 import * as canIUseCache from "./cache/canIUse";
 import { Fiber } from "./cache/fiber";
 import * as utils from "../utils";
-import config from "../config";
+import * as config from "../config";
 
 export function getArtifact(name: string): Promise<Artifact | undefined> {
   if (artifactCache.has(name)) {
@@ -13,12 +13,14 @@ export function getArtifact(name: string): Promise<Artifact | undefined> {
   }
 
   let auth;
-  if (config.username && config.password) {
-    auth = { username: config.username, password: config.password };
+  const username = config.username();
+  const password = config.password();
+  if (username && password) {
+    auth = { username, password };
   }
 
   const promise = axios
-    .get(urlJoin(config.registry, name), { auth })
+    .get(urlJoin(config.registry(), name), { auth })
     .then((res) => res.data)
     .catch((error) => {
       if (error.response?.status === 404) {

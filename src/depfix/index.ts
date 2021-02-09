@@ -3,7 +3,7 @@ import { processDependencies } from "./processor";
 import { resolveBadPackage } from "./resolver";
 import { PackageLock } from "../types";
 import * as utils from "../utils";
-import config from "../config";
+import * as config from "../config";
 
 export default async function run(location: string) {
   try {
@@ -38,7 +38,7 @@ export default async function run(location: string) {
     }
 
     const resolvedPackages = badPackages.filter((x) => x.resolved);
-    if (config.log && resolvedPackages.length) {
+    if (config.debug() && resolvedPackages.length) {
       utils.saveJson(location, "resolved_packages.json", resolvedPackages);
     }
 

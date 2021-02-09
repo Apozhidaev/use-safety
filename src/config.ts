@@ -1,26 +1,36 @@
 import path from "path";
-import { OptionValues } from "commander";
+import { program } from "commander";
 import registryUrl from "registry-url";
+
 require("dotenv").config();
+const currentRegistry = registryUrl();
 
-const config = {
-  registry: process.env.USE_SAFETY_REGISTRY || registryUrl(),
-  username: process.env.USE_SAFETY_USERNAME,
-  password: process.env.USE_SAFETY_PASSWORD,
-  rootDir: path.resolve(process.env.USE_SAFETY_ROOT_DIR || "."),
-  log: !!process.env.USE_SAFETY_LOG && process.env.USE_SAFETY_LOG !== "0",
+export const registry = (): string =>
+  program.opts().registry || process.env.USE_SAFETY_REGISTRY || currentRegistry;
 
-  update: (options: OptionValues) => {
-    config.registry = options.registry || config.registry;
-    config.username = options.username || config.username;
-    config.password = options.password || config.password;
-    config.rootDir = options.rootDir ? path.resolve(options.rootDir) : config.rootDir;
-    config.log = options.log === true || config.log;
+export const username = (): string | undefined =>
+  program.opts().username || process.env.USE_SAFETY_USERNAME;
 
-    if (options.noTls) {
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-    }
-  },
-};
+export const password = (): string | undefined =>
+  program.opts().password || process.env.USE_SAFETY_PASSWORD;
 
-export default config;
+export const rootDir = (): string =>
+  path.resolve(program.opts().rootDir || process.env.USE_SAFETY_ROOT_DIR || ".");
+
+export const debug = (): boolean => program.opts().debug === true || process.env.DEBUG === "true";
+
+export function mainArgs() {
+  const splitIndex = process.argv.indexOf("--");
+  if (splitIndex > 0) {
+    return process.argv.slice(0, splitIndex);
+  }
+  return process.argv;
+}
+
+export function additionalArgs() {
+  const splitIndex = process.argv.indexOf("--");
+  if (splitIndex > 0) {
+    return process.argv.slice(splitIndex + 1);
+  }
+  return [];
+}

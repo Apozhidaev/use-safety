@@ -1,32 +1,66 @@
 # use-safety
 
-The library for safety install from npm repository (Artifactory et al.)
+The library for safety install from npm repository (artifactory et al.)
 
-### How to Use
+## How to Use
 
-```bash
-npx use-safety i
-```
-
-```bash
-npx use-safety i moment
-```
-
-```bash
-npx use-safety i moment -- --save-dev
-```
-
-```bash
+```sh
 npx use-safety --help
 ```
 
-### Configuration by *.env*
+### Fix dependencies (npm/lerna)
 
-```bash
+```sh
+npx use-safety fix
+```
+
+```sh
+npx use-safety --npx --lerna fix
+```
+
+### Install packages
+
+#### npm
+
+```sh
+npx use-safety i
+```
+
+```sh
+npx use-safety i moment
+```
+
+```sh
+npx use-safety i moment -- --save-dev
+```
+
+#### lerna
+
+```sh
+npx use-safety --npx --lerna i
+```
+
+```sh
+npx use-safety --npx --lerna i moment
+```
+
+```sh
+npx use-safety --npx --lerna i moment -- --dev
+```
+
+### Pass extra arguments to npm\lerna client by placing them after `--`:
+
+```sh
+npx use-safety --npx --lerna i -- --hoist
+```
+
+## Use .env configuration
+
+```sh
 NODE_TLS_REJECT_UNAUTHORIZED=0
 USE_SAFETY_REGISTRY=https://registry.npmjs.org/
 USE_SAFETY_USERNAME=user
 USE_SAFETY_PASSWORD=pass
 USE_SAFETY_ROOT_DIR=.
-USE_SAFETY_LOG=1
+DEBUG=true
 ```

@@ -1,14 +1,15 @@
 {
   "name": "use-safety",
-  "version": "0.0.3",
-  "description": "The library for safety install from npm repository (Artifactory et al.)",
+  "version": "1.0.0",
+  "description": "The library for safety install from npm repository (artifactory et al.)",
   "main": "dist/index.js",
   "bin": {
     "use-safety": "bin/cli.js"
   },
   "scripts": {
     "build": "webpack",
-    "cli": "node bin/cli.js i",
+    "cli-i": "node bin/cli.js i",
+    "cli-fix": "node bin/cli.js fix",
     "help": "node bin/cli.js --help",
     "version": "node bin/cli.js --version",
     "prettify": "prettier --write \"src/**/*.[jt]s?(x)\" --ignore-unknown"
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/Apozhidaev/use-safety#readme",
   "dependencies": {
+    "@lerna/project": "^3.21.0",
     "axios": "^0.21.1",
     "commander": "^7.0.0",
     "dotenv": "^8.2.0",
