@@ -61,6 +61,8 @@ NODE_TLS_REJECT_UNAUTHORIZED=0
 USE_SAFETY_REGISTRY=https://registry.npmjs.org/
 USE_SAFETY_USERNAME=user
 USE_SAFETY_PASSWORD=pass
+USE_SAFETY_AUTH=token       (for Basic Authentication)
+USE_SAFETY_AUTH_TOKEN=token (for Bearer Authentication)
 USE_SAFETY_ROOT_DIR=.
 DEBUG=true
 ```

@@ -12,8 +12,8 @@ program
   .option("--password <pass>", "password for user")
   .option("--root-dir <path>", "root directory")
   .option(
-    "--no-tls",
-    "if value equals ture, certificate validation is disabled for TLS connections"
+    "--tls",
+    "if value equals ture, certificate validation is enable for TLS connections"
   )
   .option("--debug", "show resolved packages")
   .option("--lerna", "use lerna")

@@ -12,15 +12,26 @@ export function getArtifact(name: string): Promise<Artifact | undefined> {
     return artifactCache.get(name);
   }
 
+  if (config.tls()) {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "1";
+  }
+
   let auth;
   const username = config.username();
   const password = config.password();
   if (username && password) {
     auth = { username, password };
   }
+  let headers;
+  if (!auth) {
+    const credentials = config.credentials();
+    if (credentials) {
+      headers = { Authorization: `${credentials.type} ${credentials.token}` };
+    }
+  }
 
   const promise = axios
-    .get(urlJoin(config.registry(), name), { auth })
+    .get(urlJoin(config.registry(), name), { headers, auth })
     .then((res) => res.data)
     .catch((error) => {
       if (error.response?.status === 404) {
