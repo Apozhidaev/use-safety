@@ -2,6 +2,7 @@ import { program } from "commander";
 import * as utils from "../utils";
 import depfix from "../depfix";
 import * as config from "../config";
+import * as repo from "../repo";
 const { getPackages } = require("@lerna/project");
 
 type Options = {
@@ -33,8 +34,9 @@ export async function install(pkg?: string) {
   const cwd = config.rootDir();
   const args = config.additionalArgs();
   const options: Options = program.opts();
+  const safetyPackage = await repo.safetyPackage(pkg);
   const command = `${options.npx ? "npx" : "npm"} lerna ${
-    pkg ? `add ${pkg}` : "bootstrap"
+    safetyPackage ? `add ${safetyPackage}` : "bootstrap"
   } ${args.join(" ")}`;
   await utils.shell(`${command} -- --package-lock-only`, cwd);
   await runAll(depfix);

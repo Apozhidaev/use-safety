@@ -78,3 +78,11 @@ export function shaHexToBase64(hex: string) {
       return hex;
   }
 }
+
+export function version(pkg: string) {
+  const parts = pkg.split("@");
+  if (parts.length > 1) {
+    return semver.clean(parts[parts.length - 1]);
+  }
+  return null;
+}

@@ -70,3 +70,23 @@ export function canIUse(name: string, range: string, fiber: Fiber = new Fiber())
   canIUseCache.add(name, range, promise);
   return promise;
 }
+
+export async function safetyPackage(name?: string) {
+  if (!name) return name;
+  const version = utils.version(name);
+  if (version) {
+    return name;
+  }
+  const artifact = await getArtifact(name);
+  if (artifact) {
+    const latest = artifact["dist-tags"].latest;
+    if (artifact.versions[latest]) {
+      return `${name}@${latest}`;
+    }
+    const versions = utils.availableVersions(artifact);
+    if (versions.length > 0) {
+      return `${name}@${versions[0]}`;
+    }
+  }
+  return name;
+}

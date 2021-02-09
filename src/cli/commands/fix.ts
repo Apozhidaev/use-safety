@@ -12,8 +12,5 @@ async function fix() {
 }
 
 export default function use() {
-  program
-    .command("fix")
-    .description("fix lost dependencies")
-    .action(fix);
+  program.command("fix").description("fix lost dependencies").action(fix);
 }
