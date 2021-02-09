@@ -40,10 +40,11 @@ export async function resolveBadPackage(
   for (let i = 0; i < versions.length; i++) {
     const version = versions[i];
     if (await canIResolve(name, version, dependents)) {
+      const dist = artifact.versions[version].dist;
       currentPackage.replace({
         version: artifact.versions[version].version,
         resolved: artifact.versions[version].dist.tarball,
-        integrity: utils.shaHexToBase64(artifact.versions[version].dist.shasum),
+        integrity: dist.integrity || utils.shasumToIntegrity(artifact.versions[version].dist.shasum),
       });
       return;
     }

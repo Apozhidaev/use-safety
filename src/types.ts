@@ -42,6 +42,7 @@ export type PackageInfo = {
   dist: {
     shasum: string;
     tarball: string;
+    integrity?: string;
   };
   version: string;
 };

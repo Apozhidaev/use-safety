@@ -67,15 +67,15 @@ export function availableVersions(artifact: Artifact, require?: string) {
   return require ? versions.filter((version) => semver.satisfies(version, require)) : versions;
 }
 
-export function shaHexToBase64(hex: string) {
-  const base64 = Buffer.from(hex, "hex").toString("base64");
+export function shasumToIntegrity(shasum: string) {
+  const base64 = Buffer.from(shasum, "hex").toString("base64");
   switch (base64.length) {
     case 88:
       return `sha512-${base64}`;
     case 28:
       return `sha1-${base64}`;
     default:
-      return hex;
+      return '';
   }
 }
 
