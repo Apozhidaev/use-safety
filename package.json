@@ -1,6 +1,6 @@
 {
   "name": "use-safety",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The library for safety install from npm repository (artifactory et al.)",
   "main": "dist/index.js",
   "bin": {

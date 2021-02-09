@@ -20,11 +20,13 @@ export async function install(pkg?: string) {
   const args = config.additionalArgs();
   const safetyPackage = await repo.safetyPackage(pkg);
   const command = `npm i ${safetyPackage || ""} ${args.join(" ")}`;
+  console.log("create-package-lock: start...");
   await utils.shell(`${command} --package-lock-only`, cwd);
   console.log("dep-fix: start...");
   await depfix(cwd);
   const options: Options = program.opts();
   if (!options.packageLockOnly) {
+    console.log("install: start...");
     await utils.shell(command, cwd);
   }
   console.log("done!");

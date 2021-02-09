@@ -92,11 +92,16 @@ export async function safetyPackage(name?: string) {
   if (artifact) {
     const latest = artifact["dist-tags"].latest;
     if (artifact.versions[latest]) {
-      return `${name}@${latest}`;
+      if (await canIUse(name, latest)) {
+        return `${name}@${latest}`;
+      }
     }
     const versions = utils.availableVersions(artifact);
-    if (versions.length > 0) {
-      return `${name}@${versions[0]}`;
+    for (let i = 0; i < versions.length; i++) {
+      const version = versions[i];
+      if (await canIUse(name, version)) {
+        return `${name}@${version}`;
+      }
     }
   }
   return name;

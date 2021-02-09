@@ -26,6 +26,7 @@ export async function runAll(task: (location: string) => Promise<void>) {
 }
 
 export async function fix() {
+  console.log("dep-fix: start...");
   await runAll(depfix);
   console.log("done!");
 }
@@ -38,9 +39,12 @@ export async function install(pkg?: string) {
   const command = `${options.npx ? "npx" : "npm"} lerna ${
     safetyPackage ? `add ${safetyPackage}` : "bootstrap"
   } ${args.join(" ")}`;
+  console.log("create-package-lock: start...");
   await utils.shell(`${command} -- --package-lock-only`, cwd);
+  console.log("dep-fix: start...");
   await runAll(depfix);
   if (!options.packageLockOnly) {
+    console.log("install: start...");
     await utils.shell(command, cwd);
   }
   console.log("done!");
