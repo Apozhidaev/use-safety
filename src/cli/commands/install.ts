@@ -1,13 +1,13 @@
-import { program } from "commander";
+import { program, OptionValues } from "commander";
 import * as npm from "../npm";
 import * as lerna from "../lerna";
 
-async function install(pkg?: string) {
-  const options = program.opts();
-  if (options.lerna) {
-    await lerna.install(pkg);
+async function install(pkg: string | undefined, options: OptionValues) {
+  const globalOptions = program.opts();
+  if (globalOptions.lerna) {
+    await lerna.install(pkg, options);
   } else {
-    await npm.install(pkg);
+    await npm.install(pkg, options);
   }
 }
 

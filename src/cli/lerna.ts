@@ -6,8 +6,11 @@ import * as repo from "../repo";
 const { getPackages } = require("@lerna/project");
 
 type Options = {
-  npx?: boolean;
   packageLockOnly?: boolean;
+};
+
+type GlobalOptions = {
+  npx?: boolean;
 };
 
 export async function run(location: string, task: (location: string) => Promise<void>) {
@@ -25,18 +28,12 @@ export async function runAll(task: (location: string) => Promise<void>) {
   }
 }
 
-export async function fix() {
-  console.log("dep-fix: start...");
-  await runAll(depfix);
-  console.log("done!");
-}
-
-export async function install(pkg?: string) {
+export async function install(pkg: string | undefined, options: Options) {
   const cwd = config.rootDir();
   const args = config.additionalArgs();
-  const options: Options = program.opts();
+  const globalOptions: GlobalOptions = program.opts();
   const safetyPackage = await repo.safetyPackage(pkg);
-  const command = `${options.npx ? "npx" : "npm"} lerna ${
+  const command = `${globalOptions.npx ? "npx" : "npm"} lerna ${
     safetyPackage ? `add ${safetyPackage}` : "bootstrap"
   } ${args.join(" ")}`;
   console.log("create-package-lock: start...");

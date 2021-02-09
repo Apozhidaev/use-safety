@@ -14,9 +14,12 @@ npx use-safety --help
 npx use-safety fix
 ```
 
+### Clean (npm/lerna)
+
 ```sh
-npx use-safety --npx --lerna fix
+npx use-safety clean [-m, --node-modules][-l, --package-lock][-a, --all]
 ```
+
 
 ### Install packages
 

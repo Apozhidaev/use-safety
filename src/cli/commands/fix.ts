@@ -1,14 +1,11 @@
 import { program } from "commander";
-import * as npm from "../npm";
+import depfix from "../../depfix";
 import * as lerna from "../lerna";
 
 async function fix() {
-  const options = program.opts();
-  if (options.lerna) {
-    await lerna.fix();
-  } else {
-    await npm.fix();
-  }
+  console.log("dep-fix: start...");
+  await lerna.runAll(depfix);
+  console.log("done!");
 }
 
 export default function use() {

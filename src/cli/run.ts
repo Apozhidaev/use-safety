@@ -2,6 +2,7 @@ import { program } from "commander";
 import * as config from "../config";
 import useFix from "./commands/fix";
 import useInstall from "./commands/install";
+import useClean from "./commands/clean";
 
 const pkg = require("../../package.json");
 
@@ -15,7 +16,7 @@ program
     "--tls",
     "if value equals ture, certificate validation is enable for TLS connections"
   )
-  .option("--debug", "show resolved packages")
+  .option("-d, --debug", "show resolved packages")
   .option("--lerna", "use lerna")
   .option("--npx", "use npx");
 
@@ -24,5 +25,6 @@ export default async function run() {
   console.log("use-safety:", args.join(", "));
   useFix();
   useInstall();
+  useClean();
   await program.parseAsync(args);
 }

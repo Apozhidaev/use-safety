@@ -1,4 +1,3 @@
-import { program } from "commander";
 import depfix from "../depfix";
 import * as config from "../config";
 import * as utils from "../utils";
@@ -8,14 +7,7 @@ type Options = {
   packageLockOnly?: boolean;
 };
 
-export async function fix() {
-  const cwd = config.rootDir();
-  console.log("dep-fix: start...");
-  await depfix(cwd);
-  console.log("done!");
-}
-
-export async function install(pkg?: string) {
+export async function install(pkg: string | undefined, options: Options) {
   const cwd = config.rootDir();
   const args = config.additionalArgs();
   const safetyPackage = await repo.safetyPackage(pkg);
@@ -24,7 +16,6 @@ export async function install(pkg?: string) {
   await utils.shell(`${command} --package-lock-only`, cwd);
   console.log("dep-fix: start...");
   await depfix(cwd);
-  const options: Options = program.opts();
   if (!options.packageLockOnly) {
     console.log("install: start...");
     await utils.shell(command, cwd);
