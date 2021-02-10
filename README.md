@@ -42,7 +42,7 @@ npx use-safety add moment
 ```
 
 
-### Pass extra arguments to npm\lerna client by placing them after `--`:
+### Pass extra arguments to npm\lerna client by placing them after `--`
 
 #### npm
 
