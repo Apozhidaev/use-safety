@@ -44,7 +44,8 @@ export async function resolveBadPackage(
       currentPackage.replace({
         version: artifact.versions[version].version,
         resolved: artifact.versions[version].dist.tarball,
-        integrity: dist.integrity || utils.shasumToIntegrity(artifact.versions[version].dist.shasum),
+        integrity:
+          dist.integrity || utils.shasumToIntegrity(artifact.versions[version].dist.shasum),
       });
       return;
     }

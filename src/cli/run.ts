@@ -1,8 +1,9 @@
 import { program } from "commander";
 import * as config from "../config";
+import useAdd from "./commands/add";
+import useClean from "./commands/clean";
 import useFix from "./commands/fix";
 import useInstall from "./commands/install";
-import useClean from "./commands/clean";
 
 const pkg = require("../../package.json");
 
@@ -12,19 +13,15 @@ program
   .option("--username <user>", "user to login")
   .option("--password <pass>", "password for user")
   .option("--root-dir <path>", "root directory")
-  .option(
-    "--tls",
-    "if value equals ture, certificate validation is enable for TLS connections"
-  )
-  .option("-d, --debug", "show resolved packages")
-  .option("--lerna", "use lerna")
-  .option("--npx", "use npx");
+  .option("--tls", "if value equals ture, certificate validation is enable for TLS connections")
+  .option("-d, --debug", "show resolved packages");
 
 export default async function run() {
   const args = config.mainArgs();
   console.log("use-safety:", args.join(", "));
+  useAdd();
+  useClean();
   useFix();
   useInstall();
-  useClean();
   await program.parseAsync(args);
 }

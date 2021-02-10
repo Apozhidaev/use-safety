@@ -21,9 +21,7 @@ npx use-safety clean [-m, --node-modules][-l, --package-lock][-a, --all]
 ```
 
 
-### Install packages
-
-#### npm
+### Install packages (npm/lerna)
 
 ```sh
 npx use-safety i
@@ -33,6 +31,21 @@ npx use-safety i
 npx use-safety i moment
 ```
 
+### Add packages without install (npm/lerna)
+
+```sh
+npx use-safety add
+```
+
+```sh
+npx use-safety add moment
+```
+
+
+### Pass extra arguments to npm\lerna client by placing them after `--`:
+
+#### npm
+
 ```sh
 npx use-safety i moment -- --save-dev
 ```
@@ -40,22 +53,13 @@ npx use-safety i moment -- --save-dev
 #### lerna
 
 ```sh
-npx use-safety --npx --lerna i
+npx use-safety i -- --hoist
 ```
 
 ```sh
-npx use-safety --npx --lerna i moment
+npx use-safety i moment -- --dev
 ```
 
-```sh
-npx use-safety --npx --lerna i moment -- --dev
-```
-
-### Pass extra arguments to npm\lerna client by placing them after `--`:
-
-```sh
-npx use-safety --npx --lerna i -- --hoist
-```
 
 ## Use .env configuration
 

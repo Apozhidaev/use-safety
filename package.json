@@ -1,6 +1,6 @@
 {
   "name": "use-safety",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "The library for safety install from npm repository (artifactory et al.)",
   "main": "dist/index.js",
   "bin": {
@@ -10,7 +10,7 @@
     "build": "webpack",
     "cli-i": "node bin/cli.js i",
     "cli-fix": "node bin/cli.js fix",
-    "cli-clean": "node bin/cli.js clean -m",
+    "cli-clean": "node bin/cli.js clean",
     "help": "node bin/cli.js --help",
     "version": "node bin/cli.js --version",
     "prettify": "prettier --write \"src/**/*.[jt]s?(x)\" --ignore-unknown"

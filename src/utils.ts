@@ -75,7 +75,7 @@ export function shasumToIntegrity(shasum: string) {
     case 28:
       return `sha1-${base64}`;
     default:
-      return '';
+      return "";
   }
 }
 
