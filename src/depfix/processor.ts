@@ -1,3 +1,4 @@
+import * as semver from "semver";
 import { DependencyMap, PackageParent } from "../types";
 import BadPackage from "./badPackage";
 import * as repo from "../repo";
@@ -22,10 +23,13 @@ export async function processDependencies(
   await Promise.all(
     packages.map(async (name) => {
       const dependency = dependencies[name];
-      if (await badVersion(name, dependency.version)) {
-        badPackages.push(new BadPackage(name, dependency.version, meta));
-        return;
-      }
+
+      if (semver.valid(dependency.version)) {
+        if (await badVersion(name, dependency.version)) {
+          badPackages.push(new BadPackage(name, dependency.version, meta));
+          return;
+        }
+      }   
 
       if (dependency.dependencies) {
         await processDependencies(
